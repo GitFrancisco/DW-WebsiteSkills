@@ -12,8 +12,8 @@ using SkillPull.Data;
 namespace SkillPull.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240422155041_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20240423112712_db1")]
+    partial class db1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,9 +33,14 @@ namespace SkillPull.Migrations
                     b.Property<int>("MentorFK")
                         .HasColumnType("int");
 
+                    b.Property<int?>("MentorId")
+                        .HasColumnType("int");
+
                     b.HasKey("SkillsFK", "MentorFK");
 
                     b.HasIndex("MentorFK");
+
+                    b.HasIndex("MentorId");
 
                     b.ToTable("Ensina");
                 });
@@ -199,10 +204,14 @@ namespace SkillPull.Migrations
             modelBuilder.Entity("SkillPull.Models.Ensina", b =>
                 {
                     b.HasOne("SkillPull.Models.Mentor", "Mentor")
-                        .WithMany("ListaEnsina")
+                        .WithMany()
                         .HasForeignKey("MentorFK")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.HasOne("SkillPull.Models.Mentor", null)
+                        .WithMany("ListaEnsina")
+                        .HasForeignKey("MentorId");
 
                     b.HasOne("SkillPull.Models.Skills", "Skills")
                         .WithMany("ListaEnsina")
@@ -220,13 +229,13 @@ namespace SkillPull.Migrations
                     b.HasOne("SkillPull.Models.Skills", "Skills")
                         .WithMany()
                         .HasForeignKey("SkillsFK")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("SkillPull.Models.Subscricao", "Subscricao")
                         .WithMany()
                         .HasForeignKey("SubscricaoFK")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Skills");

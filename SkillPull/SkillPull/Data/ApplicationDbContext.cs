@@ -12,6 +12,27 @@ namespace SkillPull.Data
         {
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Ensina>()
+            .HasOne(e => e.Mentor)
+            .WithMany()
+            .OnDelete(DeleteBehavior.Restrict); // <--
+
+            modelBuilder.Entity<Ofere>()
+            .HasOne(e => e.Subscricao)
+            .WithMany()
+            .OnDelete(DeleteBehavior.Restrict); // <--
+
+            modelBuilder.Entity<Ofere>()
+            .HasOne(e => e.Skills)
+            .WithMany()
+            .OnDelete(DeleteBehavior.Restrict); // <--
+
+
+            base.OnModelCreating(modelBuilder);
+        }
+
         // definir tabelas
         public DbSet<Skills> Skills { get; set; }
         public DbSet<Aluno> Aluno { get; set; }

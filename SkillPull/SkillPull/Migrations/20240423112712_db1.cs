@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SkillPull.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class db1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -80,7 +80,8 @@ namespace SkillPull.Migrations
                 columns: table => new
                 {
                     SkillsFK = table.Column<int>(type: "int", nullable: false),
-                    MentorFK = table.Column<int>(type: "int", nullable: false)
+                    MentorFK = table.Column<int>(type: "int", nullable: false),
+                    MentorId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -96,7 +97,12 @@ namespace SkillPull.Migrations
                         column: x => x.MentorFK,
                         principalTable: "Utilizadores",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Ensina_Utilizadores_MentorId",
+                        column: x => x.MentorId,
+                        principalTable: "Utilizadores",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -134,19 +140,24 @@ namespace SkillPull.Migrations
                         column: x => x.SkillsFK,
                         principalTable: "Skills",
                         principalColumn: "SkillsId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Ofere_Subscricao_SubscricaoFK",
                         column: x => x.SubscricaoFK,
                         principalTable: "Subscricao",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Ensina_MentorFK",
                 table: "Ensina",
                 column: "MentorFK");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Ensina_MentorId",
+                table: "Ensina",
+                column: "MentorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Ofere_SubscricaoFK",
