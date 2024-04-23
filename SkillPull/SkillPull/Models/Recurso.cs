@@ -8,18 +8,31 @@ namespace SkillPull.Models
     /// </summary>
     public class Recurso
     {
+        /// <summary>
+        /// Chave Primária
+        /// </summary>
         [Key] // Primary Key - Recurso
         public int IdRecurso { get; set; }
 
+        /// <summary>
+        /// Nome do Recurso
+        /// </summary>
         public string NomeRecurso { get; set; }
-
+        /// <summary>
+        /// Conteúdo do Recurso
+        /// </summary>
         public string ConteudoRecurso { get; set; }
-
+        /// <summary>
+        /// Tipo de dados do Recurso
+        /// </summary>
         public string TipoRecurso { get; set; }
 
         // *******************************************
         // Relações com outras tabelas - Foreign Keys
 
+        /// <summary>
+        /// Chave forasteira "Skills"
+        /// </summary>
         [ForeignKey(nameof(Skill))]
         public int SkillsFK { get; set; }
         public Skills Skill { get; set; }
