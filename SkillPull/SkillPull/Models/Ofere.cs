@@ -13,7 +13,6 @@ namespace SkillPull.Models
     /// </summary>
     public class Ofere
     {
-        // Tabela do "meio" entre Mentor e Skills
 
         // Foreign Key - Tabela "Skills"
         [ForeignKey(nameof(Skills))]

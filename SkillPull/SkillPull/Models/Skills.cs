@@ -29,9 +29,14 @@ namespace SkillPull.Models
         // Relações com outras tabelas - Foreign Keys
 
         // Relacionamento 1-N com a tabela "Ofere"
-        [ForeignKey(nameof(Ofere))]
-        public int OfereFK { get; set; }
-        public Ofere Ofere { get; set; }
+        // Relação de Chave Estrangeira com a tabela "Ofere"
+        [ForeignKey(nameof(Ofere))] // Especifica a relação com a classe Ofere
+        [Column(Order = 1)] // Define a ordem da coluna na chave composta
+        public int SkillsFK { get; set; }
+
+        [ForeignKey(nameof(Ofere))] // Especifica a relação com a classe Ofere
+        [Column(Order = 2)] // Define a ordem da coluna na chave composta
+        public int SubscricaoFK { get; set; }
 
         // Relacionamento 1-N com a tabela "Recurso"
         public ICollection<Recurso> ListaRecursos { get; set; }
