@@ -396,3 +396,4 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+/SkillPull/SkillPull/Controllers/Api/AulaController.cs
